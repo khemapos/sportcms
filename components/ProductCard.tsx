@@ -91,7 +91,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
 
-      {/* Card Content - Only Name & Price */}
+      {/* Card Content - Name, Size, & Price */}
       <div className="flex flex-1 flex-col p-2 sm:p-3">
         {/* 2. Short Name (Single Line Truncated) */}
         <h3
@@ -102,8 +102,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           {product.name}
         </h3>
 
-        {/* 3. Price & Add Button Footer */}
-        <div className="mt-2 flex items-center justify-between pt-1">
+        {/* 3. Compact Single-Line Size Badge */}
+        {product.sizes && product.sizes.length > 0 && (
+          <div className="mt-1 flex items-center gap-1 overflow-hidden whitespace-nowrap text-[8px]">
+            <span className="max-w-[75%] truncate rounded border border-border/60 bg-muted/30 px-1 py-0.2 font-mono text-muted-foreground">
+              {product.sizes[0]}
+            </span>
+            {product.sizes.length > 1 && (
+              <span className="shrink-0 text-[8px] font-medium text-muted-foreground">
+                +{product.sizes.length - 1}
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* 4. Price & Add Button Footer */}
+        <div className="mt-auto flex items-center justify-between pt-1.5">
           <span className="text-xs font-extrabold text-foreground sm:text-sm">
             ${product.price.toFixed(2)}
           </span>
