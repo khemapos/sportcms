@@ -33,11 +33,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   }
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/40 hover:shadow-lg sm:rounded-2xl">
-      {/* 1. Image Container */}
+    <div className="group flex flex-col transition-all duration-300">
+      {/* 1. Clean Square Image Container */}
       <div
         onClick={() => onQuickView(product)}
-        className="relative aspect-square w-full cursor-pointer overflow-hidden bg-muted/40"
+        className="relative aspect-square w-full cursor-pointer overflow-hidden rounded-2xl bg-muted/40 shadow-xs transition-transform duration-300 group-hover:scale-[1.02]"
       >
         <img
           src={product.images[0] || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop'}
@@ -47,13 +47,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Discount Badge */}
         {product.originalPrice && (
-          <span className="absolute right-1.5 top-1.5 rounded-full bg-rose-500 px-1.5 py-0.2 text-[8px] font-extrabold text-white shadow-2xs sm:px-2 sm:text-[9px]">
+          <span className="absolute right-2 top-2 rounded-full bg-rose-500 px-1.5 py-0.5 text-[8px] font-black text-white shadow-xs sm:text-[9px]">
             -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
           </span>
         )}
 
         {/* Action Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center gap-1 bg-black/40 opacity-0 backdrop-blur-2xs transition-opacity duration-200 group-hover:opacity-100">
+        <div className="absolute inset-0 flex items-center justify-center gap-1.5 bg-black/40 opacity-0 backdrop-blur-2xs transition-opacity duration-200 group-hover:opacity-100">
           <button
             onClick={(e) => {
               e.stopPropagation()
@@ -91,36 +91,29 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
 
-      {/* Card Content - Name, Size, & Price */}
-      <div className="flex flex-1 flex-col p-2 sm:p-3">
-        {/* 2. Short Name (Single Line Truncated) */}
+      {/* 2. Text Details Below Image */}
+      <div className="mt-2 flex flex-1 flex-col justify-between">
+        {/* Title (2-Line Full Readability) */}
         <h3
           onClick={() => onQuickView(product)}
-          className="cursor-pointer text-[11px] font-bold text-foreground truncate transition-colors hover:text-emerald-500 sm:text-xs"
+          className="cursor-pointer text-[11px] font-bold text-foreground line-clamp-2 leading-snug transition-colors hover:text-emerald-500 sm:text-xs min-h-[2.1rem]"
           title={product.name}
         >
           {product.name}
         </h3>
 
-        {/* 3. Compact Single-Line Size Badge */}
-        {product.sizes && product.sizes.length > 0 && (
-          <div className="mt-1 flex items-center gap-1 overflow-hidden whitespace-nowrap text-[8px]">
-            <span className="max-w-[75%] truncate rounded border border-border/60 bg-muted/30 px-1 py-0.2 font-mono text-muted-foreground">
-              {product.sizes[0]}
+        {/* Price & Add Button Row */}
+        <div className="mt-1.5 flex items-center justify-between">
+          <div className="flex flex-col leading-none">
+            <span className="text-xs font-extrabold text-foreground sm:text-sm">
+              ${product.price.toFixed(2)}
             </span>
-            {product.sizes.length > 1 && (
-              <span className="shrink-0 text-[8px] font-medium text-muted-foreground">
-                +{product.sizes.length - 1}
+            {product.originalPrice && (
+              <span className="text-[9px] text-muted-foreground line-through mt-0.5">
+                ${product.originalPrice.toFixed(2)}
               </span>
             )}
           </div>
-        )}
-
-        {/* 4. Price & Add Button Footer */}
-        <div className="mt-auto flex items-center justify-between pt-1.5">
-          <span className="text-xs font-extrabold text-foreground sm:text-sm">
-            ${product.price.toFixed(2)}
-          </span>
 
           <button
             onClick={handleAddToCart}
@@ -130,7 +123,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 ? 'bg-emerald-600 text-white'
                 : product.stock === 0
                 ? 'cursor-not-allowed bg-muted text-muted-foreground'
-                : 'bg-emerald-500 text-white shadow-2xs hover:bg-emerald-600'
+                : 'bg-emerald-500 text-white shadow-xs hover:bg-emerald-600'
             }`}
             title={t.add}
           >
