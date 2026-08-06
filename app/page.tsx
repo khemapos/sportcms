@@ -15,7 +15,7 @@ import { INITIAL_PRODUCTS, ProductItem } from '@/lib/seedData'
 import { Sparkles, SlidersHorizontal, PackageX, Database } from 'lucide-react'
 
 export default function Page() {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
   const [products, setProducts] = useState<ProductItem[]>(INITIAL_PRODUCTS)
   const [loading, setLoading] = useState<boolean>(true)
   const [dbConnected, setDbConnected] = useState<boolean>(false)
@@ -231,37 +231,41 @@ export default function Page() {
         />
 
         {/* Products Catalog Section */}
-        <section id="products-section" className="space-y-6 pt-4">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-2xl font-black tracking-tight text-foreground sm:text-3xl">
-                  {activeSport === 'all'
+        <section id="products-section" className="space-y-6 pt-4">          {/* Header Controls & Filter Bar */}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border/40 pb-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+                <h2
+                  className={`text-base font-black tracking-tight text-foreground sm:text-2xl ${
+                    language === 'km' ? 'leading-normal' : 'leading-tight'
+                  }`}
+                >
+                  {activeSport === 'all' && activeCategory === 'all'
                     ? t.allSportsGear
                     : `${activeSport.toUpperCase()} COLLECTION`}
                 </h2>
-                <span className="rounded-full bg-emerald-500/10 px-3 py-0.5 text-xs font-bold text-emerald-500">
+                <span className="shrink-0 whitespace-nowrap rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-bold text-emerald-500 sm:text-xs">
                   {filteredProducts.length} {t.itemsCount}
                 </span>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground max-w-xl">
                 {t.heroDesc}
               </p>
             </div>
 
             {/* Sort Dropdown & DB Status indicator */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <div className="hidden items-center gap-1.5 rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-muted-foreground sm:flex">
                 <Database className={`h-3.5 w-3.5 ${dbConnected ? 'text-emerald-500' : 'text-amber-500'}`} />
                 <span>{dbConnected ? t.mongoConnected : t.localSeedData}</span>
               </div>
 
-              <div className="flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-xs">
-                <SlidersHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
+              <div className="flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-xs shadow-xs">
+                <SlidersHorizontal className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                  className="bg-transparent font-medium text-foreground focus:outline-none cursor-pointer"
+                  className="bg-transparent font-semibold text-foreground focus:outline-none cursor-pointer"
                 >
                   <option value="featured">{t.featuredFirst}</option>
                   <option value="price-asc">{t.priceLowHigh}</option>
