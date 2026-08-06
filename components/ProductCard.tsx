@@ -46,7 +46,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/40 hover:shadow-xl">
-      {/* Image Container - Aspect ratio 4/3 for mobile compact view */}
+      {/* Image Container - Aspect ratio 4/3 */}
       <div
         onClick={() => onQuickView(product)}
         className="relative aspect-[4/3] sm:aspect-square w-full cursor-pointer overflow-hidden bg-muted/40"
@@ -71,7 +71,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </span>
         )}
 
-        {/* Hover/Tap Action Overlay */}
+        {/* Action Overlay */}
         <div className="absolute inset-0 flex items-center justify-center gap-1.5 bg-black/40 opacity-0 backdrop-blur-xs transition-opacity duration-200 group-hover:opacity-100">
           <button
             onClick={(e) => {
@@ -114,7 +114,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       <div className="flex flex-1 flex-col p-2.5 sm:p-3.5">
         {/* Brand & Stock */}
         <div className="flex items-center justify-between text-[10px] sm:text-xs">
-          <span className="font-bold uppercase tracking-wider text-emerald-500 truncate">
+          <span className="font-bold uppercase tracking-wider text-emerald-500 truncate max-w-[65%]">
             {product.brand}
           </span>
           <span className={product.stock > 0 ? 'text-muted-foreground font-medium shrink-0' : 'text-rose-500 font-medium shrink-0'}>
@@ -122,34 +122,31 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </span>
         </div>
 
-        {/* Title - Fixed height so grid items align evenly */}
+        {/* Title */}
         <h3
           onClick={() => onQuickView(product)}
-          className="mt-1 h-8 cursor-pointer text-xs font-bold text-foreground line-clamp-2 transition-colors hover:text-emerald-500 sm:text-sm"
+          className="mt-1 min-h-[2rem] cursor-pointer text-xs font-bold text-foreground line-clamp-2 transition-colors hover:text-emerald-500 sm:text-sm"
         >
           {product.name}
         </h3>
 
-        {/* Sizes Preview - Compact badges */}
+        {/* Single-Line Compact Size Preview */}
         {product.sizes && product.sizes.length > 0 && (
-          <div className="mt-1.5 flex items-center gap-1 overflow-x-auto text-[9px] scrollbar-none">
-            {product.sizes.slice(0, 3).map((size, idx) => (
-              <span
-                key={idx}
-                className="rounded border border-border/60 bg-muted/30 px-1 py-0.2 font-mono text-muted-foreground"
-              >
-                {size}
+          <div className="mt-1.5 flex items-center gap-1 overflow-hidden whitespace-nowrap text-[9px]">
+            <span className="max-w-[70%] truncate rounded border border-border/60 bg-muted/30 px-1.5 py-0.5 font-mono text-muted-foreground">
+              {product.sizes[0]}
+            </span>
+            {product.sizes.length > 1 && (
+              <span className="shrink-0 text-[9px] text-muted-foreground font-medium">
+                +{product.sizes.length - 1}
               </span>
-            ))}
-            {product.sizes.length > 3 && (
-              <span className="text-muted-foreground text-[9px]">+{product.sizes.length - 3}</span>
             )}
           </div>
         )}
 
-        {/* Price & Add to Cart Footer */}
-        <div className="mt-auto flex items-center justify-between pt-2">
-          <div className="flex flex-col">
+        {/* Price & Add Button Footer */}
+        <div className="mt-auto flex items-center justify-between pt-2.5">
+          <div className="flex flex-col leading-tight">
             <span className="text-sm font-extrabold text-foreground sm:text-base">
               ${product.price.toFixed(2)}
             </span>
