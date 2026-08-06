@@ -5,6 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+    --font-dongrek: var(--font-dongrek);
+    --font-battambang: var(--font-battambang);
+    --font-noto-khmer: var(--font-noto-khmer);
     --font-heading: var(--font-sans);
     --font-sans: var(--font-sans);
     --color-sidebar-ring: var(--sidebar-ring);
@@ -126,4 +129,35 @@
   html {
     @apply font-sans;
     }
+}
+
+/* Khmer Typography Rules */
+[data-lang="km"] {
+  font-family: var(--font-battambang), var(--font-sans), sans-serif;
+}
+
+[data-lang="km"] h1,
+[data-lang="km"] h2,
+[data-lang="km"] h3,
+[data-lang="km"] h4,
+[data-lang="km"] h5,
+[data-lang="km"] h6,
+[data-lang="km"] header,
+[data-lang="km"] nav,
+[data-lang="km"] .kh-header {
+  font-family: var(--font-noto-khmer), var(--font-sans), sans-serif;
+}
+
+[data-lang="km"] .font-dongrek {
+  font-family: var(--font-dongrek), sans-serif !important;
+}
+
+[data-lang="km"] p,
+[data-lang="km"] span,
+[data-lang="km"] button,
+[data-lang="km"] input,
+[data-lang="km"] label,
+[data-lang="km"] select,
+[data-lang="km"] textarea {
+  font-family: var(--font-battambang), var(--font-sans), sans-serif;
 }
