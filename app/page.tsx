@@ -276,11 +276,11 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Product Grid */}
+          {/* Product Grid - 3 products per row */}
           {loading ? (
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                <div key={n} className="h-64 rounded-xl bg-muted/40 animate-pulse sm:h-80 sm:rounded-2xl" />
+            <div className="grid grid-cols-3 gap-2 sm:grid-cols-3 lg:grid-cols-3 sm:gap-4">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
+                <div key={n} className="h-56 rounded-xl bg-muted/40 animate-pulse sm:h-72 sm:rounded-2xl" />
               ))}
             </div>
           ) : filteredProducts.length === 0 ? (
@@ -302,7 +302,7 @@ export default function Page() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
+            <div className="grid grid-cols-3 gap-2 sm:grid-cols-3 lg:grid-cols-3 sm:gap-4">
               {filteredProducts.map((product) => (
                 <ProductCard
                   key={product._id || product.id || product.slug}
