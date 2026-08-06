@@ -32,24 +32,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     setTimeout(() => setAdded(false), 1500)
   }
 
-  const sportColors: Record<string, string> = {
-    football: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
-    basketball: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
-    tennis: 'bg-lime-500/10 text-lime-600 dark:text-lime-400 border-lime-500/20',
-    running: 'bg-cyan-500/10 text-cyan-500 border-cyan-500/20',
-    fitness: 'bg-purple-500/10 text-purple-500 border-purple-500/20',
-    badminton: 'bg-rose-500/10 text-rose-500 border-rose-500/20',
-    other: 'bg-muted text-muted-foreground border-border',
-  }
-
-  const sportBadgeClass = sportColors[product.sport] || sportColors.other
-
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card shadow-2xs transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/40 hover:shadow-lg sm:rounded-2xl">
-      {/* Image Container - Aspect ratio 4/3 */}
+      {/* 1. Image Container */}
       <div
         onClick={() => onQuickView(product)}
-        className="relative aspect-[4/3] w-full cursor-pointer overflow-hidden bg-muted/40"
+        className="relative aspect-square w-full cursor-pointer overflow-hidden bg-muted/40"
       >
         <img
           src={product.images[0] || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop'}
@@ -57,16 +45,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
 
-        {/* Top Badges */}
-        <div className="absolute left-1.5 top-1.5 flex flex-wrap gap-1">
-          <span className={`rounded-full border px-1.5 py-0.2 text-[8px] font-extrabold uppercase backdrop-blur-md sm:px-2 sm:text-[9px] ${sportBadgeClass}`}>
-            {product.sport}
-          </span>
-        </div>
-
         {/* Discount Badge */}
         {product.originalPrice && (
-          <span className="absolute right-1.5 top-1.5 rounded-full bg-rose-500 px-1 py-0.2 text-[8px] font-extrabold text-white shadow-2xs sm:px-1.5 sm:text-[9px]">
+          <span className="absolute right-1.5 top-1.5 rounded-full bg-rose-500 px-1.5 py-0.2 text-[8px] font-extrabold text-white shadow-2xs sm:px-2 sm:text-[9px]">
             -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
           </span>
         )}
@@ -110,72 +91,36 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
 
-      {/* Card Content */}
-      <div className="flex flex-1 flex-col p-1.5 sm:p-3">
-        {/* Brand & Stock */}
-        <div className="flex items-center justify-between text-[9px] sm:text-[10px]">
-          <span className="font-bold uppercase tracking-wider text-emerald-500 truncate max-w-[60%]">
-            {product.brand}
-          </span>
-          <span className={product.stock > 0 ? 'text-muted-foreground font-medium shrink-0' : 'text-rose-500 font-medium shrink-0'}>
-            {product.stock > 0 ? `${product.stock} left` : t.outOfStock}
-          </span>
-        </div>
-
-        {/* Title */}
+      {/* Card Content - Only Name & Price */}
+      <div className="flex flex-1 flex-col p-2 sm:p-3">
+        {/* 2. Short Name (Single Line Truncated) */}
         <h3
           onClick={() => onQuickView(product)}
-          className="mt-0.5 min-h-[2.2rem] cursor-pointer text-[11px] font-bold text-foreground line-clamp-2 transition-colors hover:text-emerald-500 sm:text-xs leading-snug"
+          className="cursor-pointer text-[11px] font-bold text-foreground truncate transition-colors hover:text-emerald-500 sm:text-xs"
+          title={product.name}
         >
           {product.name}
         </h3>
 
-        {/* Single-Line Size Preview */}
-        {product.sizes && product.sizes.length > 0 && (
-          <div className="mt-1 flex items-center gap-1 overflow-hidden whitespace-nowrap text-[8px]">
-            <span className="max-w-[75%] truncate rounded border border-border/60 bg-muted/30 px-1 py-0.2 font-mono text-muted-foreground">
-              {product.sizes[0]}
-            </span>
-            {product.sizes.length > 1 && (
-              <span className="shrink-0 text-[8px] text-muted-foreground font-medium">
-                +{product.sizes.length - 1}
-              </span>
-            )}
-          </div>
-        )}
-
-        {/* Price & Add Button Footer */}
-        <div className="mt-auto flex items-center justify-between pt-1.5">
-          <div className="flex flex-col leading-tight">
-            <span className="text-xs font-extrabold text-foreground sm:text-sm">
-              ${product.price.toFixed(2)}
-            </span>
-            {product.originalPrice && (
-              <span className="text-[9px] text-muted-foreground line-through">
-                ${product.originalPrice.toFixed(2)}
-              </span>
-            )}
-          </div>
+        {/* 3. Price & Add Button Footer */}
+        <div className="mt-2 flex items-center justify-between pt-1">
+          <span className="text-xs font-extrabold text-foreground sm:text-sm">
+            ${product.price.toFixed(2)}
+          </span>
 
           <button
             onClick={handleAddToCart}
             disabled={product.stock === 0}
-            className={`flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-bold transition-all active:scale-95 ${
+            className={`flex h-7 w-7 items-center justify-center rounded-full transition-all active:scale-95 sm:h-8 sm:w-8 ${
               added
                 ? 'bg-emerald-600 text-white'
                 : product.stock === 0
                 ? 'cursor-not-allowed bg-muted text-muted-foreground'
                 : 'bg-emerald-500 text-white shadow-2xs hover:bg-emerald-600'
             }`}
+            title={t.add}
           >
-            {added ? (
-              <Check className="h-3 w-3" />
-            ) : (
-              <>
-                <ShoppingCart className="h-3 w-3" />
-                <span className="hidden sm:inline">{t.add}</span>
-              </>
-            )}
+            {added ? <Check className="h-3.5 w-3.5" /> : <ShoppingCart className="h-3.5 w-3.5" />}
           </button>
         </div>
       </div>
