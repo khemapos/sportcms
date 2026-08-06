@@ -96,11 +96,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {/* Title (2-Line Full Readability) */}
         <h3
           onClick={() => onQuickView(product)}
-          className="cursor-pointer text-[11px] font-bold text-foreground line-clamp-2 leading-snug transition-colors hover:text-emerald-500 sm:text-xs min-h-[2.1rem]"
+          className="cursor-pointer text-[11px] font-bold text-foreground line-clamp-2 leading-snug transition-colors hover:text-emerald-500 sm:text-xs"
           title={product.name}
         >
           {product.name}
         </h3>
+
+        {/* Size Preview Row */}
+        {product.sizes && product.sizes.length > 0 && (
+          <div className="mt-1 flex items-center gap-1 overflow-hidden whitespace-nowrap text-[9px] text-muted-foreground">
+            <span className="max-w-[75%] truncate rounded bg-muted/60 px-1 py-0.2 font-mono text-[9px]">
+              {product.sizes[0]}
+            </span>
+            {product.sizes.length > 1 && (
+              <span className="shrink-0 font-medium text-[9px]">
+                +{product.sizes.length - 1}
+              </span>
+            )}
+          </div>
+        )}
 
         {/* Price & Add Button Row */}
         <div className="mt-1.5 flex items-center justify-between">
