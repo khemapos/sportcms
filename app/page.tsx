@@ -329,52 +329,52 @@ export default function Page() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-20 border-t border-border/60 bg-muted/30 py-12 text-xs text-muted-foreground">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-8">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="space-y-3">
+      <footer className="mt-16 border-t border-border/60 bg-muted/30 py-8 text-xs text-muted-foreground sm:mt-20 sm:py-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-6 sm:space-y-8">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="col-span-2 space-y-2.5 sm:col-span-1">
               <div className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-emerald-500" />
+                <Sparkles className="h-5 w-5 text-emerald-500 shrink-0" />
                 <span className="text-base font-black text-foreground">MK SPORT STORE</span>
               </div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground max-w-sm">
                 {t.footerDesc}
               </p>
             </div>
 
-            <div>
-              <h4 className="font-extrabold uppercase tracking-wider text-foreground">{t.shopBySport}</h4>
-              <ul className="mt-3 space-y-2 text-xs">
-                <li><button onClick={() => { setActiveSport('football'); scrollToProducts() }} className="hover:text-emerald-500">{t.football}</button></li>
-                <li><button onClick={() => { setActiveSport('basketball'); scrollToProducts() }} className="hover:text-emerald-500">{t.basketball}</button></li>
-                <li><button onClick={() => { setActiveSport('tennis'); scrollToProducts() }} className="hover:text-emerald-500">{t.tennis}</button></li>
-                <li><button onClick={() => { setActiveSport('running'); scrollToProducts() }} className="hover:text-emerald-500">{t.running}</button></li>
+            <div className="col-span-1">
+              <h4 className="font-extrabold uppercase tracking-wider text-foreground text-[11px] sm:text-xs">{t.shopBySport}</h4>
+              <ul className="mt-2.5 space-y-1.5 text-xs">
+                <li><button onClick={() => { setActiveSport('football'); scrollToProducts() }} className="hover:text-emerald-500 transition-colors">{t.football}</button></li>
+                <li><button onClick={() => { setActiveSport('basketball'); scrollToProducts() }} className="hover:text-emerald-500 transition-colors">{t.basketball}</button></li>
+                <li><button onClick={() => { setActiveSport('tennis'); scrollToProducts() }} className="hover:text-emerald-500 transition-colors">{t.tennis}</button></li>
+                <li><button onClick={() => { setActiveSport('running'); scrollToProducts() }} className="hover:text-emerald-500 transition-colors">{t.running}</button></li>
               </ul>
             </div>
 
-            <div>
-              <h4 className="font-extrabold uppercase tracking-wider text-foreground">{t.customerSupport}</h4>
-              <ul className="mt-3 space-y-2 text-xs">
-                <li className="hover:text-emerald-500 cursor-pointer">Order Tracking</li>
-                <li className="hover:text-emerald-500 cursor-pointer">30-Day Return Policy</li>
-                <li className="hover:text-emerald-500 cursor-pointer">Size Fitting Guide</li>
-                <li className="hover:text-emerald-500 cursor-pointer">Authenticity Guarantee</li>
+            <div className="col-span-1">
+              <h4 className="font-extrabold uppercase tracking-wider text-foreground text-[11px] sm:text-xs">{t.customerSupport}</h4>
+              <ul className="mt-2.5 space-y-1.5 text-xs">
+                <li className="hover:text-emerald-500 cursor-pointer transition-colors">Order Tracking</li>
+                <li className="hover:text-emerald-500 cursor-pointer transition-colors">30-Day Return</li>
+                <li className="hover:text-emerald-500 cursor-pointer transition-colors">Size Fitting</li>
+                <li className="hover:text-emerald-500 cursor-pointer transition-colors">Authenticity</li>
               </ul>
             </div>
 
-            <div>
-              <h4 className="font-extrabold uppercase tracking-wider text-foreground">CMS & i18n Tech Stack</h4>
-              <p className="mt-3 text-xs leading-relaxed">
+            <div className="col-span-2 sm:col-span-1">
+              <h4 className="font-extrabold uppercase tracking-wider text-foreground text-[11px] sm:text-xs">CMS & i18n Tech Stack</h4>
+              <p className="mt-2.5 text-xs leading-relaxed">
                 Powered by Next.js 16, ElysiaJS backend, Mongoose ODM, Tailwind CSS v4, and React I18n Context.
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-6">
-            <span>© {new Date().getFullYear()} MK Sport Store & CMS. {t.allRightsReserved}</span>
+          <div className="flex flex-col items-center justify-between gap-3 border-t border-border/60 pt-6 text-center sm:flex-row sm:text-left">
+            <span className="text-[11px] sm:text-xs">© {new Date().getFullYear()} MK Sport Store & CMS. {t.allRightsReserved}</span>
             <div className="flex items-center gap-4 text-xs font-semibold">
-              <span className="hover:text-foreground cursor-pointer">Privacy Policy</span>
-              <span className="hover:text-foreground cursor-pointer">Terms of Service</span>
+              <span className="hover:text-foreground cursor-pointer transition-colors">Privacy Policy</span>
+              <span className="hover:text-foreground cursor-pointer transition-colors">Terms of Service</span>
             </div>
           </div>
         </div>
