@@ -1,10 +1,14 @@
 import mongoose from 'mongoose'
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/sportcms'
-const MONGO_DB_NAME = process.env.MONGO_DB_NAME || 'mova'
+const MONGODB_URI = process.env.MONGODB_URI
+const MONGO_DB_NAME = process.env.MONGO_DB_NAME
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local')
+}
+
+if (!MONGO_DB_NAME) {
+  throw new Error('Please define the MONGO_DB_NAME environment variable inside .env.local')
 }
 
 interface MongooseCache {
@@ -35,7 +39,7 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
       serverSelectionTimeoutMS: 5000,
     }
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongooseInstance) => {
+    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongooseInstance) => {
       console.log(`MongoDB connected successfully to database: ${MONGO_DB_NAME}`)
       return mongooseInstance
     })
