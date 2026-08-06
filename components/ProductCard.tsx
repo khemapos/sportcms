@@ -96,52 +96,48 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {/* Title (2-Line Full Readability) */}
         <h3
           onClick={() => onQuickView(product)}
-          className="cursor-pointer text-[11px] font-bold text-foreground line-clamp-2 leading-snug transition-colors hover:text-emerald-500 sm:text-xs"
+          className="cursor-pointer text-[11px] font-bold text-foreground line-clamp-2 leading-snug transition-colors hover:text-emerald-500 sm:text-xs min-h-[2.1rem]"
           title={product.name}
         >
           {product.name}
         </h3>
 
-        {/* Size Preview Row */}
-        {product.sizes && product.sizes.length > 0 && (
-          <div className="mt-1 flex items-center gap-1 overflow-hidden whitespace-nowrap text-[9px] text-muted-foreground">
-            <span className="max-w-[75%] truncate rounded bg-muted/60 px-1 py-0.2 font-mono text-[9px]">
-              {product.sizes[0]}
+        {/* Price Row */}
+        <div className="mt-1 flex items-baseline gap-1.5">
+          <span className="text-xs font-extrabold text-foreground sm:text-sm">
+            ${product.price.toFixed(2)}
+          </span>
+          {product.originalPrice && (
+            <span className="text-[9px] text-muted-foreground line-through">
+              ${product.originalPrice.toFixed(2)}
             </span>
-            {product.sizes.length > 1 && (
-              <span className="shrink-0 font-medium text-[9px]">
-                +{product.sizes.length - 1}
-              </span>
-            )}
-          </div>
-        )}
+          )}
+        </div>
 
-        {/* Price & Add Button Row */}
-        <div className="mt-1.5 flex items-center justify-between">
-          <div className="flex flex-col leading-none">
-            <span className="text-xs font-extrabold text-foreground sm:text-sm">
-              ${product.price.toFixed(2)}
-            </span>
-            {product.originalPrice && (
-              <span className="text-[9px] text-muted-foreground line-through mt-0.5">
-                ${product.originalPrice.toFixed(2)}
-              </span>
-            )}
-          </div>
-
+        {/* 3. Full Width Add to Cart Button (Replaces size row) */}
+        <div className="mt-2">
           <button
             onClick={handleAddToCart}
             disabled={product.stock === 0}
-            className={`flex h-7 w-7 items-center justify-center rounded-full transition-all active:scale-95 sm:h-8 sm:w-8 ${
+            className={`flex w-full items-center justify-center gap-1.5 rounded-xl py-1.5 text-[11px] font-bold transition-all active:scale-95 sm:text-xs ${
               added
                 ? 'bg-emerald-600 text-white'
                 : product.stock === 0
                 ? 'cursor-not-allowed bg-muted text-muted-foreground'
-                : 'bg-emerald-500 text-white shadow-xs hover:bg-emerald-600'
+                : 'bg-emerald-500 text-white shadow-2xs hover:bg-emerald-600'
             }`}
-            title={t.add}
           >
-            {added ? <Check className="h-3.5 w-3.5" /> : <ShoppingCart className="h-3.5 w-3.5" />}
+            {added ? (
+              <>
+                <Check className="h-3.5 w-3.5" />
+                <span>{t.added}</span>
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="h-3.5 w-3.5" />
+                <span>{t.add}</span>
+              </>
+            )}
           </button>
         </div>
       </div>
